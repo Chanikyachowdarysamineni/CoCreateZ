@@ -4,8 +4,7 @@ import { Zap, Github, Twitter, Linkedin } from "lucide-react";
 const Footer = () => {
   const footerLinks = {
     Product: [
-      { name: "Features", href: "#features" },
-      { name: "Dashboard", href: "/dashboard" },
+      { name: "Features", href: "/features" },
       { name: "Pricing", href: "/pricing" },
       { name: "Security", href: "/security" }
     ],
@@ -95,7 +94,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-muted-foreground text-sm">
-              © 2024 CollabSync. All rights reserved.
+              © {new Date().getFullYear()} CollabSync. All rights reserved.
             </p>
             
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
@@ -105,7 +104,7 @@ const Footer = () => {
               <Link to="/changelog" className="hover:text-primary transition-colors">
                 Changelog
               </Link>
-              <span>Made with ❤️ for teams</span>
+              <span>owners: Chanikya Chowdary Samimemi , Daniel Miriyala</span>
             </div>
           </div>
         </div>
