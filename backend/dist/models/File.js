@@ -38,7 +38,12 @@ const mongoose_1 = __importStar(require("mongoose"));
 const FileSchema = new mongoose_1.Schema({
     filename: { type: String, required: true },
     originalname: { type: String, required: true },
-    user_id: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true }
+    user_id: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
+    mime: { type: String },
+    size: { type: Number },
+    fileType: { type: String, enum: ['excel', 'document', 'presentation', 'image', 'other'], default: 'other' },
+    tags: [{ type: String }],
+    permissions: { type: mongoose_1.Schema.Types.Mixed }
 });
 exports.FileModel = mongoose_1.default.model('File', FileSchema);
 class File {

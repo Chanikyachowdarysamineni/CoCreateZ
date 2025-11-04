@@ -94,4 +94,9 @@ CollaborationSessionSchema.index({ channelId: 1, status: 1 });
 CollaborationSessionSchema.index({ participants: 1 });
 CollaborationSessionSchema.index({ createdAt: -1 });
 
-export const CollaborationSession = mongoose.model<ICollaborationSession>('CollaborationSession', CollaborationSessionSchema);
+// Map this model explicitly to the existing collection name `collab tool` in Atlas
+export const CollaborationSession = mongoose.model<ICollaborationSession>(
+  'CollaborationSession',
+  CollaborationSessionSchema,
+  'collab tool'
+);

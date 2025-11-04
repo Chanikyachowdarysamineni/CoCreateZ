@@ -33,7 +33,7 @@ router.get('/messages/:channelId', authMiddleware, async (req, res) => {
     const messageIds = messages.map(msg => msg._id);
     await Message.updateMany(
       { _id: { $in: messageIds } },
-      { $addToSet: { readBy: req.user.id } }
+    { $addToSet: { readBy: req.user!.id } }
     );
 
     res.json({
@@ -57,8 +57,8 @@ router.post('/messages', authMiddleware, async (req, res) => {
 
     const message = new Message({
       content,
-      sender: req.user.id,
-      senderName: req.user.name,
+  sender: req.user!.id,
+  senderName: req.user!.name,
       channel,
       type,
       replyTo,
@@ -89,7 +89,7 @@ router.put('/messages/:messageId', authMiddleware, async (req, res) => {
       return res.status(404).json({ error: 'Message not found' });
     }
 
-    if (message.sender.toString() !== req.user.id) {
+    if (message.sender.toString() !== req.user!.id) {
       return res.status(403).json({ error: 'Not authorized to edit this message' });
     }
 
@@ -115,7 +115,7 @@ router.delete('/messages/:messageId', authMiddleware, async (req, res) => {
       return res.status(404).json({ error: 'Message not found' });
     }
 
-    if (message.sender.toString() !== req.user.id) {
+    if (message.sender.toString() !== req.user!.id) {
       return res.status(403).json({ error: 'Not authorized to delete this message' });
     }
 
@@ -140,18 +140,18 @@ router.post('/messages/:messageId/reactions', authMiddleware, async (req, res) =
 
     const existingReaction = message.reactions.find(r => r.emoji === emoji);
     if (existingReaction) {
-      if (existingReaction.users.includes(req.user.name)) {
-        existingReaction.users = existingReaction.users.filter(u => u !== req.user.name);
+      if (existingReaction.users.includes(req.user!.name as string)) {
+        existingReaction.users = existingReaction.users.filter(u => u !== (req.user!.name as string));
         if (existingReaction.users.length === 0) {
           message.reactions = message.reactions.filter(r => r.emoji !== emoji);
         }
       } else {
-        existingReaction.users.push(req.user.name);
+        existingReaction.users.push(req.user!.name as string);
       }
     } else {
       message.reactions.push({
         emoji,
-        users: [req.user.name],
+        users: [req.user!.name as string],
         timestamp: new Date()
       });
     }
@@ -269,7 +269,7 @@ router.post('/presence', authMiddleware, async (req, res) => {
     const { status, activity, channel } = req.body;
 
     await UserPresence.findOneAndUpdate(
-      { userId: req.user.id },
+  { userId: req.user!.id },
       {
         status,
         currentActivity: activity,

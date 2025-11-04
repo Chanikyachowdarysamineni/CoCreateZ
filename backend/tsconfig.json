@@ -5,10 +5,11 @@
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
+    "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "src/types"],
+  "include": ["src", "src/types", "src/**/*.js"],
   "exclude": ["node_modules", "dist"]
 }
