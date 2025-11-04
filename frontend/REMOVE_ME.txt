@@ -1,0 +1,12 @@
+Files/folders recommended for removal:
+- WEBSITE_CREATION_PROMPT.md
+- placeholder.svg (if not used)
+- Any unused assets in src/assets
+- Any unused components in src/components
+- Any unused pages in src/pages
+- Any demo/test files
+- Any duplicate or example .env files
+- Any README.md that is not project-specific
+- Any lock files for unused package managers (bun.lockb if not using Bun)
+
+Next: I will begin removing these files. If you want to keep any, let me know before I proceed.
